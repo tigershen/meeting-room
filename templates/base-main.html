@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+{% block head %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{% block headTitle %}{% endblock %}</title>
+  <meta name="description" content="會議室">
+  <meta name="author" content="tiger">
+  <link href="node_modules/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/toastr/build/toastr.min.css"> 
+  {% block headExtra %}{% endblock %}
+{% endblock %}
+</head>
+
+<body>
+
+{% block bodyContent %}
+
+  <nav class="nav nav-pills nav-fill">
+    <a class="nav-item nav-link" href="explain.php">說明</a>
+    {% for k,v in meetingRooms %}
+    <a class="nav-item nav-link" href="index.php?roomID={{k}}">{{v}}</a>
+    {% endfor %}
+    {% if roomID is defined %}
+    <a class="nav-item nav-link" href="room.php?roomID={{roomID}}">前台</a>
+    {% endif %}
+  </nav>
+
+{% endblock %} 
+  
+{% block bodyFooter %}
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/moment/min/moment.min.js"></script>
+  <script src="node_modules/fullcalendar/dist/fullcalendar.min.js"></script>
+  <script src="node_modules/fullcalendar/dist/locale/zh-tw.js"></script>
+  <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="node_modules/toastr/build/toastr.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      let url = window.location.href
+      $('a.nav-link').each(function (i, o) {
+        let pat = $(o).attr('href')
+        if(url.indexOf(pat)>0) $(o).addClass('active') 
+      })
+    })
+  </script> 
+{% endblock %}
+
+</body>
+
+</html>

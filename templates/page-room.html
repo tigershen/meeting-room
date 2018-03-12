@@ -1,0 +1,60 @@
+{% extends "base-main.html" %}
+
+
+{% block headTitle %}{{meetingRooms[roomID]}}{% endblock %}
+
+
+{% block headExtra %}
+<style>
+  body {background:#d7d7d7;}
+  .myrow {height: 15vh;line-height:15vh; font-size:10vh;}
+  .my3row {height: 45vh;line-height:15vh; font-size:10vh;}
+</style>
+{% endblock %}
+
+
+{% block bodyContent %}
+
+  <main role="main" class="container">
+
+    <div class="myrow text-center" id="roomName">{{meetingRooms[roomID]}}</div>
+    <div class="my3row" id="title"></div>
+    <div class="myrow" id="time"></div>
+    <div class="myrow text-right" id="register"></div>
+
+  </main>
+{% endblock %}
+
+
+{% block bodyFooter %}
+  {{parent()}}
+  <script>
+    $(document).ready(function () {
+      //setInterval(updateTime, 1000)
+      updatePage()
+      setInterval(updatePage, 60*1000)
+    })
+
+    /*
+    function updateTime(){
+      let now = moment()
+      $('#now').html(now.format('YYYY-MM-DD ddd HH:mm:ss'))
+    }
+    */
+
+    function updatePage(){
+      $.get('?ajax=getCurrentEvent&roomID={{roomID}}', function(data){
+        if(data.length>0){
+          $('#title').html('名稱 : ' + data[0].title)
+          $('#time').html('時間 : ' + moment(data[0].start).format('HH:mm') 
+            + ' ~ ' + moment(data[0].end).format('HH:mm'))
+          $('#register').html(data[0].register)
+        }else{
+          $('#title').html('')
+          $('#time').html('')
+          $('#register').html('')
+        }
+      })
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,20 @@
+{
+    "name": "tiger/MeetingRoom",
+    "description": "meetingroom booking website",
+    "type": "project",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "tiger shen",
+            "email": "tiger.kts@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "vlucas/phpdotenv": "^2.4",
+        "robmorgan/phinx": "^0.9.1",
+        "twig/twig": "^2.4",
+        "monolog/monolog": "^1.23",
+        "nesbot/carbon": "^1.23"
+    }
+}
