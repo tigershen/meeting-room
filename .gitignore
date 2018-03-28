@@ -1,4 +1,5 @@
 .env
+.git
 .vscode
 /vendor
 /public/node_modules

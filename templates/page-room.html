@@ -23,6 +23,7 @@
     <div class="myrow text-right" id="register"></div>
 
   </main>
+
 {% endblock %}
 
 
@@ -30,17 +31,9 @@
   {{parent()}}
   <script>
     $(document).ready(function () {
-      //setInterval(updateTime, 1000)
       updatePage()
       setInterval(updatePage, 60*1000)
     })
-
-    /*
-    function updateTime(){
-      let now = moment()
-      $('#now').html(now.format('YYYY-MM-DD ddd HH:mm:ss'))
-    }
-    */
 
     function updatePage(){
       $.get('?ajax=getCurrentEvent&roomID={{roomID}}', function(data){

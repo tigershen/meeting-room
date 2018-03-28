@@ -87,12 +87,12 @@
           center: 'title',
           right: 'month,agendaWeek'
         },
-        businessHours:{
+        businessHours:{ //顯示上班時間,區塊顏色會不同.
           dow: [1,2,3,4,5],
-          start: '08:00',
+          start: '07:00',
           end: '19:00'
         },
-        allDaySlot: false,
+        allDaySlot: false, //顯示在網頁上的時間範圍
         minTime: '07:00:00',
         maxTime: '21:00:00',
         select: function(startDate, endDate){
@@ -164,7 +164,6 @@
         }
      })
     }
-
 
   </script>
 {% endblock %}
