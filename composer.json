@@ -13,8 +13,6 @@
     "require": {
         "vlucas/phpdotenv": "^2.4",
         "robmorgan/phinx": "^0.9.1",
-        "twig/twig": "^2.4",
-        "monolog/monolog": "^1.23",
-        "nesbot/carbon": "^1.23"
+        "twig/twig": "^2.4"
     }
 }
