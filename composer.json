@@ -1,11 +1,11 @@
 {
-    "name": "tiger/MeetingRoom",
-    "description": "meetingroom booking website",
+    "name": "tigershen/meeting-room",
+    "description": "簡單的會議室管理",
     "type": "project",
     "license": "proprietary",
     "authors": [
         {
-            "name": "tiger shen",
+            "name": "tigershen",
             "email": "tiger.kts@gmail.com"
         }
     ],

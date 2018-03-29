@@ -24,7 +24,7 @@
     <a class="nav-item nav-link" href="index.php?roomID={{k}}">{{v}}</a>
     {% endfor %}
     {% if roomID is defined %}
-    <a class="nav-item nav-link" href="room.php?roomID={{roomID}}">前台</a>
+    <a class="nav-item nav-link" href="room.php?roomID={{roomID}}" target="_blank">前台</a>
     {% endif %}
   </nav>
 
@@ -44,6 +44,13 @@
         if(url.indexOf(pat)>0) $(o).addClass('active') 
       })
     })
+
+    function popitup(link) {
+      var w = window.open(link.href,
+            link.target||"_blank",
+            'menubar=no,toolbar=no,location=no,directories=no,status=no,scrollbars=no,resizable=no,dependent,width=800,height=620,left=0,top=0');
+      return w?false:true; // allow the link to work if popup is blocked
+     }
   </script> 
 {% endblock %}
 

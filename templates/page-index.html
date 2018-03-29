@@ -141,12 +141,15 @@
     function saveForm(){
       let formData = new FormData($('form')[0])
       let errMsg = ''
+
       if($('#title').val().length===0) errMsg += "須填寫 會議名稱<br>"
       if($('#register').val().length===0) errMsg += "須填寫 登記人<br>"
+
       if(errMsg.length>0) {
         toastr.error(errMsg)
         return false
       }
+
       $.ajax({
         url: '?ajax=saveEvent',
         type: 'POST',

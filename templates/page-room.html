@@ -4,44 +4,55 @@
 {% block headTitle %}{{meetingRooms[roomID]}}{% endblock %}
 
 
-{% block headExtra %}
-<style>
-  body {background:#d7d7d7;}
-  .myrow {height: 15vh;line-height:15vh; font-size:10vh;}
-  .my3row {height: 45vh;line-height:15vh; font-size:10vh;}
-</style>
+{% block head %}
+  {{parent()}}
+  <link href="node_modules/reveal.js/css/reveal.css" rel="stylesheet">
+  <link href="node_modules/reveal.js/css/theme/league.css" rel="stylesheet">
 {% endblock %}
 
 
 {% block bodyContent %}
-
-  <main role="main" class="container">
-
-    <div class="myrow text-center" id="roomName">{{meetingRooms[roomID]}}</div>
-    <div class="my3row" id="title"></div>
-    <div class="myrow" id="time"></div>
-    <div class="myrow text-right" id="register"></div>
-
-  </main>
-
+  <div class="reveal">
+    <div class="slides">
+      <section>
+          <h1 id="roomName">{{meetingRooms[roomID]}}</h1>
+          <ul>
+            <li>
+              <h2 id="title"></h2>
+            </li>
+            <li><h2 id="time"></h2></li>
+            <li><h2 id="register"></h2></li>
+          </ul>
+      </section>
+    </div>
+  </div>
 {% endblock %}
 
 
 {% block bodyFooter %}
   {{parent()}}
+  <script src="node_modules/reveal.js/js/reveal.js"></script>
   <script>
     $(document).ready(function () {
       updatePage()
-      setInterval(updatePage, 60*1000)
+      Reveal.initialize({
+        width: "100%",
+        height: "100%",
+        margin: 0.1,
+        minScale: 1,
+        maxScale: 1
+      })
+      setInterval(updatePage, 30*1000) //30秒更新一次
     })
 
     function updatePage(){
       $.get('?ajax=getCurrentEvent&roomID={{roomID}}', function(data){
         if(data.length>0){
-          $('#title').html('名稱 : ' + data[0].title)
+          $('#title').html('會議名稱 : <b>' + data[0].title + '</b>')
           $('#time').html('時間 : ' + moment(data[0].start).format('HH:mm') 
-            + ' ~ ' + moment(data[0].end).format('HH:mm'))
-          $('#register').html(data[0].register)
+            + ' - ' + moment(data[0].end).format('HH:mm')
+            )
+          $('#register').html('登記人 : ' + data[0].register)
         }else{
           $('#title').html('')
           $('#time').html('')
