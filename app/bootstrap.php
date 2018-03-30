@@ -4,9 +4,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = new \Dotenv\Dotenv(__DIR__ . '/../');
 $dotenv->load();
 
-$meetingRooms = [1=>'會議室一', 2=>'會議室二'];
+$meetingRooms = [1=>'第一研討室', 2=>'第二研討室'];
 
-session_start();
 
 try {
     $dsn = sprintf(
