@@ -6,46 +6,89 @@
 
 {% block head %}
   {{parent()}}
+  <link href="node_modules/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
   <link href="node_modules/reveal.js/css/reveal.css" rel="stylesheet">
   <link href="node_modules/reveal.js/css/theme/league.css" rel="stylesheet">
+  <style>
+    li {list-style-type:none;}
+    calendar { max-width: 240px; }
+    .fc-list-empty { display: none;}
+    .fc-list-heading { display: none;}
+  </style>
 {% endblock %}
 
 
 {% block bodyContent %}
+
+
   <div class="reveal">
     <div class="slides">
       <section>
+
+        <div class="container-fluid" ><div class="row">
+
+          <div class="col-3"><div id="calendar" style="font-size:0.4em;"></div></div>
+
+          <div class="col">
           <h1 id="roomName">{{meetingRooms[roomID]}}</h1>
           <ul>
-            <li>
-              <h2 id="title"></h2>
-            </li>
-            <li><h2 id="time"></h2></li>
-            <li><h2 id="register"></h2></li>
+            <li> <h2 id="title"></h2> </li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li><h3 id="time"></h3></li>
+            <li><h3 id="register"></h3></li>
           </ul>
+          </div>
+
+        </div></div>
       </section>
+
     </div>
   </div>
+
+
 {% endblock %}
 
 
 {% block bodyFooter %}
   {{parent()}}
+  <script src="node_modules/fullcalendar/dist/fullcalendar.min.js"></script>
+  <script src="node_modules/fullcalendar/dist/locale/zh-tw.js"></script>
   <script src="node_modules/reveal.js/js/reveal.js"></script>
   <script>
-    $(document).ready(function () {
-      updatePage()
-      Reveal.initialize({
-        width: "100%",
-        height: "100%",
-        margin: 0.1,
-        minScale: 1,
-        maxScale: 1
+
+      $(document).ready(function () {
+
+        $('.fc-list-heading').hide()
+
+        $('#calendar').fullCalendar({
+          height: 800,
+          locale: 'zh-tw',
+          //defaultView: 'agendaDay',
+          defaultView: 'listDay',
+          events: 'listEvent.php?roomID={{roomID}}',
+          header: {left:'', center:'title', right:''},
+          allDaySlot: false, //顯示在網頁上的時間範圍
+          minTime: '07:00:00',
+          maxTime: '21:00:00',
+        })
+
+        updatePage()
+        Reveal.initialize({
+          width: "100%",
+          height: "100%",
+          margin: 0.1,
+          minScale: 1,
+          maxScale: 1
+        })
+        setInterval(updatePage, 5*1000) //30秒更新一次
+
+
       })
-      setInterval(updatePage, 30*1000) //30秒更新一次
-    })
 
     function updatePage(){
+      $('#calendar').fullCalendar( 'refetchEvents' )
+
       $.get('?ajax=getCurrentEvent&roomID={{roomID}}', function(data){
         if(data.length>0){
           $('#title').html('會議名稱 : <b>' + data[0].title + '</b>')
